@@ -1,0 +1,7 @@
+@media only screen and (min-width: 576px) {
+    .filtroCategoria {
+        width: 500px;
+
+        margin: 0 auto;
+    }
+}

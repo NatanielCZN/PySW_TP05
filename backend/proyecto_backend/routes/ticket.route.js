@@ -7,10 +7,11 @@ const router = express.Router();
 
 // Definimos las rutas para la gestion de producto
 router.get('/', ticketCtrl.getTickets);
+router.get('/:_id', ticketCtrl.getTicket);
 router.post('/', ticketCtrl.crearTicket);
 router.delete('/:id', ticketCtrl.deleteTicket);
 router.put('/:id', ticketCtrl.editTicket);
-router.get('/:categoriaEspectador', ticketCtrl.getTicketsCategoria);
+router.get('/categoria/:categoriaEspectador', ticketCtrl.getTicketsCategoria);
 
 // Exportamos el modulo de rutas
 module.exports = router;

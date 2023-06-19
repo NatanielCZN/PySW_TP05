@@ -1,0 +1,26 @@
+<!-- Productos -->
+<section class="m-0 mb-4 p-0">
+    <div class="my-4 text-end">
+        <button type="button" class="btn btn-success" (click)="cargarFormularioProducto()">Agregar Producto</button>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col" *ngFor="let producto of productos">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <img src="{{producto.imagen}}" class="card-img-top mb-2" alt="Producto | {{producto.nombre}}">
+
+                    <h5 class="card-title">{{producto.nombre}}</h5>
+
+                    <p class="card-text">{{producto.descripcion}}</p>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Precio: ${{producto.precio}}</li>
+
+                    <li class="list-group-item">Stock: {{producto.stock}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

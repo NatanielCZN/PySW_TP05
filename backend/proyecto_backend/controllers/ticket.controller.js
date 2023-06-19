@@ -14,6 +14,18 @@ ticketCtrl.getTickets = async (req, res) => {
 }
 
 /**
+ * Recupera UN Ticket (GET)
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+ticketCtrl.getTicket = async (req, res) => {
+    var ticket = await Ticket.find({_id: req.params._id}).populate("espectador");
+
+    res.json(ticket);
+}
+
+/**
  * Da de alta un Ticket (POST)
  * 
  * @param {*} req 

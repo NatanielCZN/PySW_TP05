@@ -1,0 +1,86 @@
+<div class="text-center bg-primary text-white my-4 p-0 py-3">
+    <h5 class="m-0">GENERAR TICKET</h5>
+</div>
+
+<div class="my-4 text-end">
+    <button type="button" class="btn btn-success fw-bold" (click)="volverLista()">Ver Listado</button>
+</div>
+
+<section class="formularioTicket">
+    <!-- FORMULARIO -->
+    <form #ticketForm="ngForm">
+        <!-- Precio -->
+        <div class="mb-3">
+            <label for="idPrecioTicket" class="form-label fw-bold">Precio</label>
+
+            <input type="number" class="form-control bg-light" id="idPrecioTicket" name="precioTicket"
+                [(ngModel)]="ticket.precioTicket" required #precioTicket="ngModel">
+
+            <!-- Validar Precio -->
+            <div *ngIf="precioTicket.invalid && (precioTicket.dirty || precioTicket.touched)"
+                class="alert alert-danger">
+                <div *ngIf="precioTicket.errors?.['required']">
+                    El precio del ticket es requerido.
+                </div>
+            </div>
+        </div>
+
+        <!-- Categoria -->
+        <div class="mb-3">
+            <label for="idCategoriaEspectador" class="form-label fw-bold">Categoria</label>
+
+            <select class="form-select bg-light" id="idCategoriaEspectador" name="categoriaEspectador"
+                [(ngModel)]="ticket.categoriaEspectador" required #categoriaEspectador="ngModel">
+                <option value="e">Extranjero</option>
+
+                <option value="l" selected>Local</option>
+            </select>
+
+            <!-- Validar Categoria -->
+            <div *ngIf="categoriaEspectador.invalid && (categoriaEspectador.dirty || categoriaEspectador.touched)"
+                class="alert alert-danger">
+                <div *ngIf="categoriaEspectador.errors?.['required']">
+                    La categoria del espectador es requerida.
+                </div>
+            </div>
+        </div>
+
+        <!-- Espectador -->
+        <div class="mb-4">
+            <label for="idEspectador" class="form-label fw-bold">Espectador</label>
+
+            <select class="form-select bg-light" name="espectador" id="idEspectador" [(ngModel)]="ticket.espectador"
+                required #espectador="ngModel">
+                <option *ngFor="let e of espectadores" value="{{e._id}}">{{e.nombre}} {{e.apellido}}</option>
+            </select>
+
+            <!-- Validar Espectador -->
+            <div *ngIf="espectador.invalid && (espectador.dirty || espectador.touched)" class="alert alert-danger">
+                <div *ngIf="espectador.errors?.['required']">
+                    El espectador es requerido.
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="idCalculado" class="form-label fw-bold">Precio Final:
+                ARS$ </label>
+        </div>
+
+        Ticket: {{ticket | json}}
+        <br>
+        Ticket precio: {{ticket.precioTicket}} aa
+
+        <div class="mb-3 text-center">
+            <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary" (click)="guardarTicket()"
+                [disabled]="ticketForm.invalid">Comprar</button>
+
+            <div *ngIf="accion == 'update'">
+                <button type="submit" class="btn btn-primary mx-1" (click)="modificarTicket()"
+                    [disabled]="ticketForm.invalid">Modificar</button>
+
+                <button class="btn btn-secondary mx-1" (click)="volverLista()">Volver</button>
+            </div>
+        </div>
+    </form>
+</section>

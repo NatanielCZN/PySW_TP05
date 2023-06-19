@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Definimos las rutas para la gestion de producto
 router.get('/', espectadorCtrl.getEspectadores);
-router.get('/:id', espectadorCtrl.getEspectadores);
+router.get('/:_id', espectadorCtrl.getEspectadorPorID);
 router.post('/', espectadorCtrl.createEspectador);
 
 // Exportamos el modulo de rutas
