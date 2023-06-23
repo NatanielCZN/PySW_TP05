@@ -11,6 +11,7 @@ import { ProductoService } from 'src/app/services/producto.service';
 export class Punto1FormComponent implements OnInit {
 
   producto!: Producto;
+  imagen: File | null = null;
 
   constructor(private productoService: ProductoService, private router: Router) {
     this.producto = new Producto();
@@ -41,5 +42,9 @@ export class Punto1FormComponent implements OnInit {
    */
   volverLista(): void {
     this.router.navigate(['punto1']);
+  }
+
+  seleccionarImagen(event: any): void {
+    this.imagen = event.target.files(0);
   }
 }

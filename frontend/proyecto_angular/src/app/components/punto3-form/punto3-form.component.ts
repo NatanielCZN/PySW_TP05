@@ -32,7 +32,7 @@ export class Punto3FormComponent implements OnInit {
       } else {
         this.accion = "update";
 
-        this.cargarTicket(params['id']);
+        this.cargarTicketEnForm(params['id']);
       }
     });
   }
@@ -61,25 +61,13 @@ export class Punto3FormComponent implements OnInit {
   cargarTicketEnForm(_id: string): void {
     this.ticketService.getTicket(_id).subscribe(
       result => {
-        Object.assign(this.ticket, result);        
+        Object.assign(this.ticket, result);
+
+        this.ticket.espectador = this.espectadores.find(item => (item._id == this.ticket.espectador._id))!;
       },
 
       error => {
         alert("Error: " + error);
-      }
-    );
-  }
-
-  cargarTicket(_id: string){
-    console.log(_id);
-
-    this.ticketService.getTicket(_id).subscribe(
-      result=>{
-        console.log(this.ticket)
-        Object.assign(this.ticket,result);
-        //this.ticket.espectador = this.espectadores.find(item=>(item._id==this.ticket.espectador._id))!
-      },
-      error=>{
       }
     );
   }
@@ -96,7 +84,7 @@ export class Punto3FormComponent implements OnInit {
       error => {
         alert("Error: " + error);
       }
-    );    
+    );
   }
 
   /**
@@ -127,7 +115,7 @@ export class Punto3FormComponent implements OnInit {
   /**
    * Regresa a la lista de tickets
    */
-  volverLista(): void{
+  volverLista(): void {
     this.router.navigate(['punto3']);
   }
 }

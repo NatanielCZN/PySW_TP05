@@ -20,7 +20,7 @@ ticketCtrl.getTickets = async (req, res) => {
  * @param {*} res 
  */
 ticketCtrl.getTicket = async (req, res) => {
-    var ticket = await Ticket.find({_id: req.params._id}).populate("espectador");
+    var ticket = await Ticket.findById(req.params._id).populate("espectador");
 
     res.json(ticket);
 }
@@ -33,7 +33,7 @@ ticketCtrl.getTicket = async (req, res) => {
  */
 ticketCtrl.crearTicket = async (req, res) => {
     var ticket = new Ticket(req.body);
-    
+
     try {
         await ticket.save();
 
@@ -58,7 +58,7 @@ ticketCtrl.crearTicket = async (req, res) => {
 ticketCtrl.deleteTicket = async (req, res) => {
     try {
         await Ticket.deleteOne({ _id: req.params.id });
-        
+
         res.json({
             status: '1',
             msg: 'Ticket removed'
@@ -102,7 +102,7 @@ ticketCtrl.editTicket = async (req, res) => {
  * @param {*} res 
  */
 ticketCtrl.getTicketsCategoria = async (req, res) => {
-    var tickets = await Ticket.find({categoriaEspectador: req.params.categoriaEspectador}).populate("espectador");
+    var tickets = await Ticket.find({ categoriaEspectador: req.params.categoriaEspectador }).populate("espectador");
 
     res.json(tickets);
 }

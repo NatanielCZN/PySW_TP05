@@ -13,6 +13,12 @@ transaccionCtrl.getTransacciones = async (req, res) => {
     res.json(transacciones);
 }
 
+transaccionCtrl.getTransaccion = async (req, res) => {
+    var transaccion = await Transaccion.findById(req.params._id);
+
+    res.json(transaccion);
+}
+
 /**
  * Da de alta una Transaccion (POST)
  * 

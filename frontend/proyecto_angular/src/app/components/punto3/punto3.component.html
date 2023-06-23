@@ -5,34 +5,31 @@
 
     <!-- Filtro -->
     <div class="filtroCategoria">
-        <form #filtroForm="ngForm">
-            <!-- Moneda Origen -->
-            <div class="mb-4 px-3">
-                <label for="idCategoria" class="form-label fw-bold">Categoria</label>
+        <form #filtroForm="ngForm" class="mt-2 mb-4">
+            <fieldset class="form-group border rounded p-3">
+                <legend class="w-auto fw-bold">Filtro</legend>
+                <hr />
 
-                <select class="form-select bg-light" name="categoria" id="idCategoria" [(ngModel)]="categoria" required
-                    #categoriaEspectador="ngModel">
-                    <option value="l" selected>Local</option>
+                <!-- Categoria -->
+                <div class="mb-4">
+                    <label for="idCategoria" class="form-label">Categoria</label>
 
-                    <option value="e">Extranjero</option>
-                </select>
+                    <select class="form-select bg-light" name="categoria" id="idCategoria" [(ngModel)]="categoria"
+                        required>
+                        <option value="l" selected>Local</option>
 
-                <!-- Validar Categoria -->
-                <div *ngIf="categoriaEspectador.invalid && (categoriaEspectador.dirty || categoriaEspectador.touched)"
-                    class="alert alert-danger">
-                    <div *ngIf="categoriaEspectador.errors?.['required']">
-                        La categoria es requerida.
-                    </div>
+                        <option value="e">Extranjero</option>
+                    </select>
                 </div>
-            </div>
 
-            <div class="text-center m-0 pt-2 pb-4">
-                <button type="submit" class="btn btn-primary fw-bold mx-2 px-3" (click)="cargarTicketsPorCategoria()"
-                    [disabled]="filtroForm.invalid">Filtrar</button>
+                <div class="text-center m-0 pt-2 pb-4">
+                    <button type="submit" class="btn btn-primary fw-bold mx-2 px-3"
+                        (click)="cargarTicketsPorCategoria()" [disabled]="filtroForm.invalid">Filtrar</button>
 
-                <button *ngIf="activo" type="submit" class="btn btn-warning fw-bold mx-2 px-3" (click)="cargarTickets()"
-                    [disabled]="filtroForm.invalid">Limpiar Filtro</button>
-            </div>
+                    <button *ngIf="activo" type="submit" class="btn btn-warning fw-bold mx-2 px-3"
+                        (click)="cargarTickets()" [disabled]="filtroForm.invalid">Limpiar Filtro</button>
+                </div>
+            </fieldset>
         </form>
     </div>
 
@@ -58,11 +55,11 @@
 
                     <td>
                         <div class="mb-2">
-                            <button class="btn btn-warning" (click)="modificarTicket(t)">Modificar</button>
+                            <button class="btn btn-warning fw-bold" (click)="modificarTicket(t)">Modificar</button>
                         </div>
 
                         <div class="mt-2">
-                            <button class="btn btn-danger px-3" (click)="eliminarTicket(t)">Eliminar</button>
+                            <button class="btn btn-danger fw-bold px-3" (click)="eliminarTicket(t)">Eliminar</button>
                         </div>
                     </td>
                 </tr>

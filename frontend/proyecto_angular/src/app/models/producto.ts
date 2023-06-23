@@ -7,7 +7,7 @@ export class Producto {
     stock!: number;
     destacado!: boolean;
 
-    constructor(){
-        this.imagen = "/assets/images/productos/producto_nuevo.png"
-    }
+    // constructor(){
+    //     this.imagen = "/assets/images/productos/producto_nuevo.png"
+    // }
 }

@@ -1,90 +1,114 @@
-<div class="text-center bg-primary text-white my-4 p-0 py-3">
-    <h5 class="m-0">AGREGAR PRODUCTO</h5>
+<div class="my-4 text-end">
+    <button type="button" class="btn btn-success fw-bold" (click)="volverLista()">Ver
+        Listado</button>
 </div>
 
 <!-- Buscador -->
 <section class="mt-4 formularioProducto">
     <form #productoForm="ngForm">
-        <div class="mb-4">
-            <label for="idNombreProducto" class="form-label fw-bold">Nombre Producto</label>
+        <div class="text-center bg-primary rounded text-white mt-4 mb-2 p-0 py-3">
+            <h5 class="m-0">AGREGAR PRODUCTO</h5>
+        </div>
 
-            <input type="text" class="form-control bg-light" id="idNombreProducto" name="nombreProducto"
-                placeholder="Ingrese nombre del prdocuto" [(ngModel)]="producto.nombre" required
-                #nombreProducto="ngModel" />
+        <fieldset class="form-group border rounded p-3">
+            <legend class="w-auto fw-bold">Formulario</legend>
 
-            <!-- Validar Nombre -->
-            <div *ngIf="nombreProducto.invalid && (nombreProducto.dirty || nombreProducto.touched)"
-                class="alert alert-danger">
-                <div *ngIf="nombreProducto.errors?.['required']">
-                    El nombre del producto es requerido.
+            <p>Campos obligatorios (<span class="text-danger fw-bold">*</span>)</p>
+            <hr />
+
+            <!-- Nombre -->
+            <div class="mb-4">
+                <label for="idNombreProducto" class="form-label">Nombre Producto (<span
+                        class="text-danger fw-bold">*</span>)</label>
+
+                <input type="text" class="form-control bg-light" id="idNombreProducto" name="nombreProducto"
+                    placeholder="Ingrese nombre del prdocuto" [(ngModel)]="producto.nombre" required
+                    #nombreProducto="ngModel" />
+
+                <!-- Validar Nombre -->
+                <div *ngIf="nombreProducto.invalid && (nombreProducto.dirty || nombreProducto.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="nombreProducto.errors?.['required']">
+                        El nombre del producto es requerido.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="mb-4">
-            <label for="idDescripcion" class="form-label fw-bold">Descripcion</label>
+            <!-- Imagen -->
+            <div class="mb-3">
+                <label for="idImagenProducto" class="form-label">Imagen (<span
+                        class="text-danger fw-bold">*</span>)</label>
 
-            <input type="text" class="form-control bg-light" id="idDescripcion" name="descripcion"
-                placeholder="Ingrese descripcion del producto" [(ngModel)]="producto.descripcion" required
-                #descripcionProducto="ngModel" />
+                <input class="form-control" accept="image/png, image/jpeg" type="file" id="idImagenProducto" name="imagenProducto"
+                    [(ngModel)]="producto.imagen" required (ngModelChange)="($event)">
+            </div>
 
-            <!-- Validar Descripcion -->
-            <div *ngIf="descripcionProducto.invalid && (descripcionProducto.dirty || descripcionProducto.touched)"
-                class="alert alert-danger">
-                <div *ngIf="descripcionProducto.errors?.['required']">
-                    La descripcion del producto es requerida.
+            <!-- Descripcion -->
+            <div class="mb-4">
+                <label for="idDescripcion" class="form-label">Descripcion (<span
+                        class="text-danger fw-bold">*</span>)</label>
+
+                <input type="text" class="form-control bg-light" id="idDescripcion" name="descripcion"
+                    placeholder="Ingrese descripcion del producto" [(ngModel)]="producto.descripcion" required
+                    #descripcionProducto="ngModel" />
+
+                <!-- Validar Descripcion -->
+                <div *ngIf="descripcionProducto.invalid && (descripcionProducto.dirty || descripcionProducto.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="descripcionProducto.errors?.['required']">
+                        La descripcion del producto es requerida.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="mb-4">
-            <label for="idPrecioProducto" class="form-label fw-bold">Precio</label>
+            <!-- Precio -->
+            <div class="mb-4">
+                <label for="idPrecioProducto" class="form-label">Precio (ARS) (<span
+                        class="text-danger fw-bold">*</span>)</label>
 
-            <input type="number" class="form-control bg-light" id="idPrecioProducto" name="precioProducto"
-                placeholder="Ingrese el precio del producto" [(ngModel)]="producto.precio" required
-                #precioProducto="ngModel" />
+                <input type="number" class="form-control bg-light" id="idPrecioProducto" name="precioProducto"
+                    placeholder="Ingrese el precio del producto" [(ngModel)]="producto.precio" required
+                    #precioProducto="ngModel" />
 
-            <!-- Validar Precio -->
-            <div *ngIf="precioProducto.invalid && (precioProducto.dirty || precioProducto.touched)"
-                class="alert alert-danger">
-                <div *ngIf="precioProducto.errors?.['required']">
-                    El precio del producto es requerido.
+                <!-- Validar Precio -->
+                <div *ngIf="precioProducto.invalid && (precioProducto.dirty || precioProducto.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="precioProducto.errors?.['required']">
+                        El precio del producto es requerido.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="mb-4">
-            <label for="idStockProducto" class="form-label fw-bold">Stock</label>
+            <!-- Stock -->
+            <div class="mb-4">
+                <label for="idStockProducto" class="form-label">Stock (<span
+                        class="text-danger fw-bold">*</span>)</label>
 
-            <input type="number" class="form-control bg-light" id="idStockProducto" name="stockProducto"
-                placeholder="Ingresar stock disponible" [(ngModel)]="producto.stock" required
-                #stockProducto="ngModel" />
+                <input type="number" class="form-control bg-light" id="idStockProducto" name="stockProducto"
+                    placeholder="Ingresar stock disponible" [(ngModel)]="producto.stock" required
+                    #stockProducto="ngModel" />
 
-            <!-- Validar Stock -->
-            <div *ngIf="stockProducto.invalid && (stockProducto.dirty || stockProducto.touched)"
-                class="alert alert-danger">
-                <div *ngIf="stockProducto.errors?.['required']">
-                    El stock del producto es requerido.
+                <!-- Validar Stock -->
+                <div *ngIf="stockProducto.invalid && (stockProducto.dirty || stockProducto.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="stockProducto.errors?.['required']">
+                        El stock del producto es requerido.
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-check mb-4">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="producto.destacado" id="idProductoDestacado"
-                name="productoDestacado">
+            <!-- Check Destacado -->
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="producto.destacado"
+                    id="idProductoDestacado" name="productoDestacado">
 
-            <label class="form-check-label fw-bold" for="idProductoDestacado">Destacado</label>
-        </div>
+                <label class="form-check-label" for="idProductoDestacado">Destacado</label>
+            </div>
 
-        <div class="row mt-4 text-center">
-            <div class="col p-2 text-sm-end">
-                <button type="submit" class="btn btn-warning fw-bold" (click)="agregarProducto()"
+            <div class="text-center my-4">
+                <button type="submit" class="btn btn-primary fw-bold" (click)="agregarProducto()"
                     [disabled]="productoForm.invalid">Agregar</button>
             </div>
-
-            <div class="col p-2 text-sm-start">
-                <button type="button" class="btn btn-secondary fw-bold" (click)="volverLista()">Volver</button>
-            </div>
-        </div>
+        </fieldset>
     </form>
 </section>

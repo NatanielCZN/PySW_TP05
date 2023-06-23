@@ -1,75 +1,133 @@
 <!-- REALIZAR TRANSACCION -->
 <section>
-    <div class="text-center bg-primary text-white my-4 p-0 py-3">
-        <h5 class="m-0">TRANSACCION DE DIVISAS</h5>
-    </div>
-
     <div class="mb-4 conversion">
-        <form>
-            <!-- Email -->
-            <div class="mb-4 px-3">
-                <label for="idEmailCliente" class="form-label fw-bold">Email</label>
-
-                <input type="email" class="form-control bg-light" id="idEmailCliente" name="emailCliente"
-                    placeholder="Ingrese e-mail" [(ngModel)]="transaccion.emailCliente" />
+        <form #transaccionForm="ngForm">
+            <div class="text-center bg-primary rounded text-white mt-4 mb-2 p-0 py-3">
+                <h5 class="m-0">TRANSACCION DE DIVISAS</h5>
             </div>
 
-            <!-- Cantidad -->
-            <div class="mb-4 px-3">
-                <label for="idCantidad" class="form-label fw-bold">Cantidad</label>
+            <fieldset class="form-group border rounded p-3">
+                <legend class="w-auto fw-bold">Formulario</legend>
 
-                <input type="number" class="form-control bg-light" id="idCantidad" name="cantidad"
-                    placeholder="Ingrese cantidad" [(ngModel)]="transaccion.cantidadOrigen" />
-            </div>
+                <p>Campos obligatorios (<span class="text-danger fw-bold">*</span>)</p>
+                <hr />
 
-            <!-- Moneda Origen -->
-            <div class="mb-4 px-3">
-                <label for="idMonedaOrigen" class="form-label fw-bold">Moneda origen</label>
+                <!-- Email -->
+                <div class="mb-4">
+                    <label for="idEmailCliente" class="form-label">Email (<span
+                            class="text-danger fw-bold">*</span>)</label>
 
-                <select class="form-select bg-light" name="monedaOrigen" id="idMonedaOrigen"
-                    [(ngModel)]="transaccion.monedaOrigen">
-                    <option value="ARS" selected>ARS Pesos Argentinos</option>
+                    <input type="email" class="form-control bg-light" id="idEmailCliente" name="emailCliente"
+                        placeholder="Ingrese e-mail" [(ngModel)]="transaccion.emailCliente" required
+                        #emailCliente="ngModel" />
 
-                    <option value="EUR">EUR Euros</option>
+                    <!-- Validar Email -->
+                    <div *ngIf="emailCliente.invalid && (emailCliente.dirty || emailCliente.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="emailCliente.errors?.['required']">
+                            El email del cliente es requerido.
+                        </div>
+                    </div>
+                </div>
 
-                    <option value="USD">USD D&oacute;lares EEUU</option>
-                </select>
-            </div>
+                <!-- Cantidad -->
+                <div class="mb-4">
+                    <label for="idCantidad" class="form-label">Cantidad (<span
+                            class="text-danger fw-bold">*</span>)</label>
 
-            <!-- Moneda Destino -->
-            <div class="mb-4 px-3">
-                <label for="idMonedaDestino" class="form-label fw-bold">Moneda destino</label>
+                    <input type="number" class="form-control bg-light" id="idCantidad" name="cantidad"
+                        placeholder="Ingrese cantidad" [(ngModel)]="transaccion.cantidadOrigen" required
+                        #cantidadOrigen="ngModel" />
 
-                <select class="form-select bg-light" name="monedaDestino" id="idMonedaDestino"
-                    [(ngModel)]="transaccion.monedaDestino">
-                    <option value="ARS">ARS Pesos Argentinos</option>
+                    <!-- Validar Cantidad -->
+                    <div *ngIf="cantidadOrigen.invalid && (cantidadOrigen.dirty || cantidadOrigen.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="cantidadOrigen.errors?.['required']">
+                            La cantidad a convertir es requerido.
+                        </div>
+                    </div>
+                </div>
 
-                    <option value="EUR">EUR Euros</option>
+                <!-- Moneda Origen -->
+                <div class="mb-4">
+                    <label for="idMonedaOrigen" class="form-label">Moneda origen (<span
+                            class="text-danger fw-bold">*</span>)</label>
 
-                    <option value="USD" selected>USD D&oacute;lares EEUU</option>
-                </select>
-            </div>
+                    <select class="form-select bg-light" name="monedaOrigen" id="idMonedaOrigen"
+                        [(ngModel)]="transaccion.monedaOrigen" required #monedaOrigen="ngModel">
+                        <option value="ARS" selected>ARS Pesos Argentinos</option>
 
-            <!-- Tasa Conversion -->
-            <div class="mb-4 px-3">
-                <label for="idTasaConversion" class="form-label fw-bold">Tasa de conversion</label>
+                        <option value="EUR">EUR Euros</option>
 
-                <input type="number" class="form-control bg-light" id="idTasaConversion" name="tasaConversion"
-                    placeholder="Ingrese tasa de conversion" [(ngModel)]="transaccion.tasaConversion" />
-            </div>
+                        <option value="USD">USD D&oacute;lares EEUU</option>
+                    </select>
 
-            <!-- Button Conversion -->
-            <div class="mb-4 mx-3 d-grid">
-                <button type="submit" class="btn btn-warning fw-bold mt-2" (click)="agregarTransaccion()">Convertir <i
-                        class="fa-solid fa-cash-register"></i></button>
-            </div>
+                    <!-- Validar Moneda Origen -->
+                    <div *ngIf="monedaOrigen.invalid && (monedaOrigen.dirty || monedaOrigen.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="monedaOrigen.errors?.['required']">
+                            La moneda de origen es requerida.
+                        </div>
+                    </div>
+                </div>
 
-            <!-- Conversion -->
-            <div class="mb-4 px-3">
-                <label for="conversion" class="form-label fw-bold">Transaccion</label>
+                <!-- Moneda Destino -->
+                <div class="mb-4">
+                    <label for="idMonedaDestino" class="form-label">Moneda destino (<span
+                            class="text-danger fw-bold">*</span>)</label>
 
-                <input type="number" class="form-control bg-success text-white text-center" id="conversion" name="conversion" [(ngModel)]="conversion" disabled />
-            </div>
+                    <select class="form-select bg-light" name="monedaDestino" id="idMonedaDestino"
+                        [(ngModel)]="transaccion.monedaDestino" required #monedaDestino="ngModel">
+                        <option value="ARS">ARS Pesos Argentinos</option>
+
+                        <option value="EUR">EUR Euros</option>
+
+                        <option value="USD" selected>USD D&oacute;lares EEUU</option>
+                    </select>
+
+                    <!-- Validar Moneda Destino -->
+                    <div *ngIf="monedaDestino.invalid && (monedaDestino.dirty || monedaDestino.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="monedaDestino.errors?.['required']">
+                            La moneda de destino es requerida.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tasa Conversion -->
+                <div class="mb-4">
+                    <label for="idTasaConversion" class="form-label">Tasa de conversion (<span
+                            class="text-danger fw-bold">*</span>)</label>
+
+                    <input type="number" class="form-control bg-light" id="idTasaConversion" name="tasaConversion"
+                        placeholder="Ingrese tasa de conversion" [(ngModel)]="transaccion.tasaConversion" required
+                        #tasaConversion="ngModel" />
+
+                    <!-- Validar Tasa Conversion -->
+                    <div *ngIf="tasaConversion.invalid && (tasaConversion.dirty || tasaConversion.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="tasaConversion.errors?.['required']">
+                            La tasa de conversion es requerida.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Button Conversion -->
+                <div class="mb-4 d-grid">
+                    <button type="submit" class="btn btn-warning fw-bold mt-2" (click)="agregarTransaccion()"
+                        [disabled]="transaccionForm.invalid">Convertir
+                        <i class="fa-solid fa-cash-register"></i></button>
+                </div>
+                <hr />
+
+                <!-- Conversion -->
+                <div class="mb-4">
+                    <label for="conversion" class="form-label fw-bold">Transaccion</label>
+
+                    <input type="number" class="form-control bg-success text-white text-center" id="conversion"
+                        name="conversion" [(ngModel)]="conversion" disabled />
+                </div>
+            </fieldset>
         </form>
     </div>
 </section>
@@ -78,44 +136,54 @@
 <!-- LISTA TRANSACCIONES -->
 <section>
     <div class="text-center m-0 py-2">
-        <button class="btn btn-primary" (click)="cargarTransacciones()">Transacciones</button>
+        <button class="btn btn-primary fw-bold" (click)="cargarTransacciones()">Transacciones</button>
     </div>
 
     <!-- Filtro -->
     <div *ngIf="filtroHabilitado">
         <div class="conversion">
-            <form #filtroForm="ngForm">
-                <!-- Moneda Origen -->
-                <div class="mb-4 px-3">
-                    <label for="idMonedaOrigen" class="form-label fw-bold">Moneda origen</label>
+            <form #filtroForm="ngForm" class="mt-2 mb-4">
+                <fieldset class="form-group border rounded p-3">
+                    <legend class="w-auto fw-bold">Filtro</legend>
+                    <hr />
 
-                    <select class="form-select bg-light" name="monedaOrigen" id="idMonedaOrigen" [(ngModel)]="mOrigen">
-                        <option value="ARS" selected>ARS Pesos Argentinos</option>
+                    <!-- Moneda Origen De -->
+                    <div class="mb-4">
+                        <label for="idMonedaOrigen" class="form-label">Moneda origen</label>
 
-                        <option value="EUR">EUR Euros</option>
+                        <select class="form-select bg-light" name="monedaOrigen" id="idMonedaOrigen"
+                            [(ngModel)]="mOrigen" required>
+                            <option value="ARS" selected>ARS Pesos Argentinos</option>
 
-                        <option value="USD">USD D&oacute;lares EEUU</option>
-                    </select>
-                </div>
+                            <option value="EUR">EUR Euros</option>
 
-                <!-- Moneda Destino -->
-                <div class="mb-4 px-3">
-                    <label for="idMonedaDestino" class="form-label fw-bold">Moneda destino</label>
+                            <option value="USD">USD D&oacute;lares EEUU</option>
+                        </select>
+                    </div>
 
-                    <select class="form-select bg-light" name="monedaDestino" id="idMonedaDestino"
-                        [(ngModel)]="mDestino">
-                        <option value="ARS">ARS Pesos Argentinos</option>
+                    <!-- Moneda Destino A -->
+                    <div class="mb-4">
+                        <label for="idMonedaDestino" class="form-label">Moneda destino</label>
 
-                        <option value="EUR">EUR Euros</option>
+                        <select class="form-select bg-light" name="monedaDestino" id="idMonedaDestino"
+                            [(ngModel)]="mDestino" required>
+                            <option value="ARS">ARS Pesos Argentinos</option>
 
-                        <option value="USD" selected>USD D&oacute;lares EEUU</option>
-                    </select>
-                </div>
+                            <option value="EUR">EUR Euros</option>
 
-                <div class="text-center m-0 pt-2 pb-4">
-                    <button type="submit" class="btn btn-primary"
-                        (click)="cargarTransaccionesOrigenDestino()">Filtrar</button>
-                </div>
+                            <option value="USD" selected>USD D&oacute;lares EEUU</option>
+                        </select>
+                    </div>
+
+                    <div class="text-center m-0 pt-2 pb-4">
+                        <button type="submit" class="btn btn-primary fw-bold"
+                            (click)="cargarTransaccionesOrigenDestino()"
+                            [disabled]="filtroForm.invalid">Filtrar</button>
+
+                        <button type="submit" class="btn btn-warning fw-bold mx-2 px-3" (click)="limpiarFiltro()"
+                            [disabled]="filtroForm.invalid">Limpiar Filtro</button>
+                    </div>
+                </fieldset>
             </form>
         </div>
 
@@ -127,18 +195,18 @@
                         <th scope="col">Email</th>
                         <th scope="col">Moneda origen</th>
                         <th scope="col">Cantidad</th>
-                        <th scope="col">Moneda destino</th>                        
+                        <th scope="col">Moneda destino</th>
                         <th scope="col">Tasa de conversion</th>
                         <th scope="col">Transaccion</th>
                     </tr>
                 </thead>
-    
+
                 <tbody class="table-group-divider">
                     <tr *ngFor="let t of transacciones">
                         <th>{{t.emailCliente}}</th>
                         <td>{{t.monedaOrigen}}</td>
                         <td>${{t.cantidadOrigen}}</td>
-                        <td>{{t.monedaDestino}}</td>                        
+                        <td>{{t.monedaDestino}}</td>
                         <td>{{t.tasaConversion}}</td>
                         <td>${{t.cantidadDestino}}</td>
                     </tr>

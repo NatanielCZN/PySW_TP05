@@ -14,6 +14,18 @@ productoCtrl.getProductos = async (req, res) => {
 }
 
 /**
+ * Recupera un Producto (GET)
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+productoCtrl.getProducto = async (req, res) => {
+    var producto = await Producto.findById(req.params._id);
+
+    res.json(producto);
+}
+
+/**
  * Da de alta un Producto (POST)
  * 
  * @param {*} req 

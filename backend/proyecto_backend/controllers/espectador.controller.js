@@ -20,7 +20,7 @@ espectadorCtrl.getEspectadores = async (req, res) => {
  * @param {*} res 
  */
 espectadorCtrl.getEspectadorPorID = async (req, res) => {
-    var espectador = await Espectador.find({_id: req.params._id});
+    var espectador = await Espectador.findById( req.params._id);
 
     res.json(espectador);
 }

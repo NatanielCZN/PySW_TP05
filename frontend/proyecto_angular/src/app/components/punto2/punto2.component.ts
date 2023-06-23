@@ -55,6 +55,10 @@ export class Punto2Component implements OnInit {
    * Carga TODAS las Transacciones
    */
   cargarTransacciones(): void {
+    this.filtroHabilitado = !this.filtroHabilitado;
+
+    if(!this.filtroHabilitado) return;
+
     this.transacciones = new Array<Transaccion>();
 
     this.transaccionService.getTransacciones().subscribe(
@@ -67,9 +71,7 @@ export class Punto2Component implements OnInit {
           this.transacciones.push(transaccion);
 
           transaccion = new Transaccion();
-        });
-
-        this.filtroHabilitado = true;
+        });        
       },
 
       error => {
@@ -104,5 +106,17 @@ export class Punto2Component implements OnInit {
         alert("Error: " + error);
       }
     );
+  }
+
+  /**
+   * Limpia los campos del filtro de transacciones
+   * 
+   */
+  limpiarFiltro(): void {
+    this.mOrigen = "";
+
+    this.mDestino = "";
+
+    this.cargarTransacciones();
   }
 }
