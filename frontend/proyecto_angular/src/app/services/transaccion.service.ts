@@ -49,6 +49,6 @@ export class TransaccionService {
         .append('monedaDestino', monedaDestino)
     }
 
-    return this.httpClient.get(this.urlBase + "transaccion/" + monedaOrigen + "/" + monedaDestino, httpOption);
+    return this.httpClient.get(this.urlBase + "transaccion/monedaOrigen" + monedaOrigen + "/monedaDestino" + monedaDestino, httpOption);
   }
 }

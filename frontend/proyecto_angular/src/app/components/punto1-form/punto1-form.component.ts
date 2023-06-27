@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -8,12 +9,12 @@ import { ProductoService } from 'src/app/services/producto.service';
   templateUrl: './punto1-form.component.html',
   styleUrls: ['./punto1-form.component.css']
 })
+
 export class Punto1FormComponent implements OnInit {
 
   producto!: Producto;
-  imagen: File | null = null;
 
-  constructor(private productoService: ProductoService, private router: Router) {
+  constructor(private domSanitizer: DomSanitizer, private productoService: ProductoService, private router: Router) {
     this.producto = new Producto();
   }
 
@@ -23,12 +24,12 @@ export class Punto1FormComponent implements OnInit {
   /**
    * Agrega un Producto a la base de datos
    */
-  agregarProducto() {
+  agregarProducto(): void {
     this.productoService.postProducto(this.producto).subscribe(
       result => {
-        this.router.navigate(['punto1']);
-
         this.producto = new Producto();
+
+        this.router.navigate(['punto1']);
       },
 
       error => {
@@ -44,7 +45,26 @@ export class Punto1FormComponent implements OnInit {
     this.router.navigate(['punto1']);
   }
 
-  seleccionarImagen(event: any): void {
-    this.imagen = event.target.files(0);
+  /**
+   * Cambia el formato de una imagen a base64
+   * @param event 
+   */
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64data = reader.result as string;
+
+      this.producto.imagen = base64data;
+
+      // Reiniciar el campo de entrada de tipo 'file'
+      const inputElement: HTMLInputElement = event.target;
+
+      inputElement.value = '';
+    };
+
+    reader.readAsDataURL(file);
   }
 }

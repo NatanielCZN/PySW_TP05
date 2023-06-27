@@ -114,7 +114,7 @@
 
                 <!-- Button Conversion -->
                 <div class="mb-4 d-grid">
-                    <button type="submit" class="btn btn-warning fw-bold mt-2" (click)="agregarTransaccion()"
+                    <button type="submit" class="btn btn-warning fw-bold mt-2" (click)="agregarTransaccion(transaccionForm)"
                         [disabled]="transaccionForm.invalid">Convertir
                         <i class="fa-solid fa-cash-register"></i></button>
                 </div>
@@ -136,7 +136,7 @@
 <!-- LISTA TRANSACCIONES -->
 <section>
     <div class="text-center m-0 py-2">
-        <button class="btn btn-primary fw-bold" (click)="cargarTransacciones()">Transacciones</button>
+        <button class="btn btn-primary fw-bold" (click)="desplegarTransacciones()">Transacciones</button>
     </div>
 
     <!-- Filtro -->

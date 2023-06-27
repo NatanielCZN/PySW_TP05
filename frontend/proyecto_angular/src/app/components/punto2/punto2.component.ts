@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Transaccion } from 'src/app/models/transaccion';
 import { TransaccionService } from 'src/app/services/transaccion.service';
 
@@ -33,7 +34,7 @@ export class Punto2Component implements OnInit {
   /**
    * Agrega una Transaccion a la lista
    */
-  agregarTransaccion(): void {
+  agregarTransaccion(transaccionFrm: NgForm): void {
     this.transaccion.calcularCantidadDestino();
 
     this.conversion = this.transaccion.cantidadDestino;
@@ -43,6 +44,8 @@ export class Punto2Component implements OnInit {
         this.transaccion = new Transaccion();
 
         this.cargarTransacciones();
+
+        transaccionFrm.reset();
       },
 
       error => {
@@ -55,10 +58,6 @@ export class Punto2Component implements OnInit {
    * Carga TODAS las Transacciones
    */
   cargarTransacciones(): void {
-    this.filtroHabilitado = !this.filtroHabilitado;
-
-    if(!this.filtroHabilitado) return;
-
     this.transacciones = new Array<Transaccion>();
 
     this.transaccionService.getTransacciones().subscribe(
@@ -116,6 +115,19 @@ export class Punto2Component implements OnInit {
     this.mOrigen = "";
 
     this.mDestino = "";
+
+    this.cargarTransacciones();
+  }
+
+  /**
+   * Despliega o pliega las transacciones
+   * 
+   * @returns 
+   */
+  desplegarTransacciones(): void {
+    this.filtroHabilitado = !this.filtroHabilitado;
+
+    if(!this.filtroHabilitado) return;
 
     this.cargarTransacciones();
   }

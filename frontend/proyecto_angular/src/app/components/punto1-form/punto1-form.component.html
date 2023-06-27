@@ -39,8 +39,8 @@
                 <label for="idImagenProducto" class="form-label">Imagen (<span
                         class="text-danger fw-bold">*</span>)</label>
 
-                <input class="form-control" accept="image/png, image/jpeg" type="file" id="idImagenProducto" name="imagenProducto"
-                    [(ngModel)]="producto.imagen" required (ngModelChange)="($event)">
+                <input class="form-control" accept="image/png, image/jpeg" type="file" id="idImagenProducto"
+                    name="imagenProducto" required (change)="onFileSelected($event)">
             </div>
 
             <!-- Descripcion -->

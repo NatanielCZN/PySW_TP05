@@ -69,11 +69,6 @@
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label for="idCalculado" class="form-label fw-bold">Precio Final:
-                    ARS$ </label>
-            </div>
-
             <div class="mb-3 text-center">
                 <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary fw-bold" (click)="guardarTicket()"
                     [disabled]="ticketForm.invalid">Comprar</button>

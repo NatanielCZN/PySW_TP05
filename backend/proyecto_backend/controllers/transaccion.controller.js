@@ -27,7 +27,7 @@ transaccionCtrl.getTransaccion = async (req, res) => {
  */
 transaccionCtrl.createTransaccion = async (req, res) => {
     var transaccion = new Transaccion(req.body);
-    
+
     try {
         await transaccion.save();
 
@@ -50,7 +50,7 @@ transaccionCtrl.createTransaccion = async (req, res) => {
  * @param {*} res 
  */
 transaccionCtrl.getTransaccionesDeCliente = async (req, res) => {
-    var transacciones = await Transaccion.find({emailCliente: req.params.emailCliente});
+    var transacciones = await Transaccion.find({ emailCliente: req.params.emailCliente });
 
     res.json(transacciones);
 }
@@ -62,7 +62,7 @@ transaccionCtrl.getTransaccionesDeCliente = async (req, res) => {
  * @param {*} res 
  */
 transaccionCtrl.getTransaccionesOrigenDestino = async (req, res) => {
-    var transacciones = await Transaccion.find({monedaOrigen: req.params.monedaOrigen, monedaDestino: req.params.monedaDestino});
+    var transacciones = await Transaccion.find({ monedaOrigen: req.params.monedaOrigen, monedaDestino: req.params.monedaDestino });
 
     res.json(transacciones);
 }

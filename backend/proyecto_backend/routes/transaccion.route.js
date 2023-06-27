@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', transaccionCtrl.getTransacciones);
 router.post('/', transaccionCtrl.createTransaccion);
 router.get('/:emailCliente', transaccionCtrl.getTransaccionesDeCliente);
-router.get('/:monedaOrigen/:monedaDestino', transaccionCtrl.getTransaccionesOrigenDestino);
+router.get('/monedaOrigen/:monedaOrigen/monedaDestino/:monedaDestino', transaccionCtrl.getTransaccionesOrigenDestino);
 
 // Exportamos el modulo de rutas
 module.exports = router;
