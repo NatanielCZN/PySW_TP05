@@ -45,6 +45,6 @@ export class Punto1Component implements OnInit {
   }
 
   cargarFormularioProducto(): void {
-    this.router.navigate(['punto1-form']);
+    this.router.navigate(['punto1-form', 0]);
   }
 }
